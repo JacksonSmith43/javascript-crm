@@ -40,6 +40,12 @@ export const makeTable = async () => {
     });
   }
 
+  function formatRevenue(numbers) {
+    var parts = numbers.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    return parts.join(".");
+  }
+
   // Initialize new array and push a header row
   const companiesToDisplay = [];
   companiesToDisplay.push(COMPANIES_TABLE_HEADERS);
@@ -51,7 +57,7 @@ export const makeTable = async () => {
       company[COMPANY_NAME_FIELD_NAME],
       company[STATUS_FIELD_NAME],
       formatTo24Hour(company[CREATED_AT_FIELD_NAME]),
-      company[REVENUE_YTD_FIELD_NAME],
+      formatRevenue(company[REVENUE_YTD_FIELD_NAME]),
       company[ACCOUNT_EXECUTIVE_FIELD_NAME]
     );
 
